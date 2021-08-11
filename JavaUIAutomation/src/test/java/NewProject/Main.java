@@ -29,7 +29,7 @@ public class Main {
         inputpassword.click();
         inputpassword.sendKeys("qwerty");
 
-        WebElement captcha = driver.findElement(By.id("id=recaptcha-anchor-label"));
+        WebElement captcha = driver.findElement(By.xpath("//div[@class=’recaptcha-checkbox-border’]"));
         captcha.click();
 
         WebElement button = driver.findElement(By.name("login-button"));
