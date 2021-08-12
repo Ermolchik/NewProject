@@ -4,9 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -33,10 +30,10 @@ public class Main {
            WebElement button = driver.findElement(By.xpath("//button[@id='_submit']"));
            button.click();
 
-           //new WebDriverWait(driver,15);
+           //new WebDriverWait(driver,15).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='pull-left']")));
 
-           //WebElement myproject = driver.findElement(By.cssSelector("div.dropdown:nth-child(3) .single:nth-child(4) .title"));
-           //myproject.click();
+           WebElement myproject = driver.findElement(By.cssSelector("div.dropdown:nth-child(3) .single:nth-child(4) .title"));
+           myproject.click();
 
        } catch (Exception e) {
            e.printStackTrace();
