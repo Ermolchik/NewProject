@@ -30,26 +30,23 @@ public class TriangleTest {
     @Test
     @DisplayName("Площадь треугольнка")
     public static void CorrectTest() {
-       try {
+
            assertEquals(triangleArea(10, 12, 10), 48.0);
            assertEquals(triangleArea(3, 4, 5), 6.0);
            assertEquals(triangleArea(9, 9, 9), 35.074028853269766);
            System.out.println("Тест: Площадь треугольника, прошёл успешно!");
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
+
     }
 
     @Test
     @DisplayName("Не корректные данные")
     public static void InCorrectTest() {
-       try {
-           assertEquals(triangleArea(11, 12, 10), 48.0);
-           assertEquals(triangleArea(3, 4, 6), 6.0);
-           assertEquals(triangleArea(9, 8, 9), 35.074029);
-       } catch (Exception e) {
-            e.printStackTrace();
-       }
+                  assertEquals(triangleArea(10, 12, 10), 49.0);
+           assertEquals(triangleArea(3, 4, 5), 7.0);
+           assertEquals(triangleArea(9, 9, 9), 34);
+
+
+            System.out.println("Тест: Не корректные данные, провалился!");
     }
 
 }
