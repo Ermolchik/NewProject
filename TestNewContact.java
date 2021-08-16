@@ -1,5 +1,6 @@
 package NewProject;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -11,13 +12,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class TestNewContact {
 
 
     @Test
     @DisplayName("Создание контакного лица")
     public static void main(String[] args){
-        System.setProperty("webdriver.chrome.driver", "E://webdriver/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C://driver browser/Chrome driver/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
         try {
@@ -68,12 +71,21 @@ public class TestNewContact {
             inputposition.click();
             inputposition.sendKeys("Менеджер");
 
-            WebElement saveandclose = driver.findElement(By.xpath("//button[@class='btn btn-success action-button']"));
+            WebElement saveandclose = driver.findElement(By.xpath("//*[@id='crm_contact-uid-611a3b08de985']//div[3]/button"));
             saveandclose.click();
+
+            WebElement lastnametest = driver.findElement(By.xpath("//*[text()='Иванов']"));
+            assertEquals(lastnametest,"Иванов");
+
+            WebElement firstnametest = driver.findElement(By.xpath("//*[text()='Анатолий']"));
+            assertEquals(firstnametest,"Анатолий");
+
+            WebElement nameorgtest = driver.findElement(By.xpath("//*[text()='1234']"));
+            assertEquals(nameorgtest,"1234");
+
+            WebElement nameopasitiontest = driver.findElement(By.xpath("//*[text()='Менеджер']"));
+            assertEquals(nameopasitiontest,"Менеджер");
 
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-
-    }
-}
+        }}}
