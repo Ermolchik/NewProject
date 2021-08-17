@@ -16,7 +16,6 @@ public class Main{
 
              StartPage sp = new StartPage(driver);
              sp.NewContragent();
-             sp.NewProject();
              NewContactFace cf = new NewContactFace();
              cf.CreateContactFace("Иванов","Анатолий","Менеджер");
 
