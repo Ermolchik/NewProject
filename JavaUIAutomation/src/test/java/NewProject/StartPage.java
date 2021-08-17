@@ -5,24 +5,38 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-public class StartPage {
+public class StartPage extends Main {
 
-    WebDriver driver = new ChromeDriver();
+    WebDriver driver;
 
-    WebElement ca = driver.findElement(By.xpath("//span[text()='Контрагенты']"));
-    Actions actions = new Actions(driver);
+    @FindBy(xpath = "//span[text()='Контрагенты']")
+    private WebElement ca;
 
-    WebElement contactface = driver.findElement(By.xpath("//span[text()='Контактные лица']"));
-    WebElement createca = driver.findElement(By.xpath("//*[text()='Создать контактное лицо']"));
+    @FindBy(xpath = "//span[text()='Контактные лица']")
+    private WebElement contactface;
 
-    WebElement myproject = driver.findElement(By.xpath("//span[text()='Проекты']"));
-    Actions actionsproj = new Actions(driver);
-    WebElement myprojectclick = driver.findElement(By.xpath("//span[text()=\"Мои проекты\"]"));
-    WebElement createproject = driver.findElement(By.xpath("//*[text()='Создать проект']"));
+    @FindBy(xpath = "//*[text()='Создать контактное лицо']")
+    private WebElement createca;
 
+    @FindBy(xpath = "//span[text()='Проекты']")
+    private WebElement myproject;
+
+    @FindBy(xpath = "//span[text()=\"Мои проекты\"]")
+    private WebElement myprojectclick;
+
+    @FindBy(xpath = "//*[text()='Создать проект']")
+    private WebElement createproject;
+
+    public StartPage(WebDriver driver){
+        this.driver = driver;
+        PageFactory.initElements(driver,this);
+    }
     public void NewContragent(){
        try {
+           Actions actions = new Actions(driver);
            actions.moveToElement(ca).build().perform();
            contactface.click();
            createca.click();
@@ -36,6 +50,7 @@ public class StartPage {
 
     public void NewProject(){
         try{
+            Actions actionsproj = new Actions(driver);
             actionsproj.moveToElement(myproject).build().perform();
             myprojectclick.click();
             Thread.sleep(5000);

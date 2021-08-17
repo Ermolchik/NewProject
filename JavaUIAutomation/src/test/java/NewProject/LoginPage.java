@@ -1,34 +1,49 @@
 package Page;
 
-import org.openqa.selenium.By;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import java.util.concurrent.TimeUnit;
 
-public class LoginPage{
-      
-    
-    WebDriver driver = new ChromeDriver();
+public class LoginPage extends Main{
 
-    WebElement inputlog = driver.findElement(By.id("prependedInput"));
-    WebElement inputpas = driver.findElement(By.id("prependedInput2"));
-    WebElement button = driver.findElement(By.xpath("//button[@id='_submit']"));
+     WebDriver driver;
 
-    public void Login(String login,String pass){
+    @FindBy(id = "prependedInput")
+    private WebElement inputlog;
+
+    @FindBy(id = "prependedInput2")
+    private WebElement inputpas;
+
+    @FindBy(xpath = "//button[@id='_submit']")
+    private WebElement button;
+
+    public LoginPage (WebDriver driver){
+     this.driver = driver;
+     PageFactory.initElements(driver,this);
+    }
+
+    @Test
+    @DisplayName("Авторизация")
+    public void Login(String login, String pass){
        try {
-           System.setProperty("webdriver.chrome.driver", "C:\\driver browser\\Chrome driver\\chromedriver.exe");
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
         driver.get("https://crm.geekbrains.space/user/login");
         inputlog.click();
         inputlog.sendKeys(login);
         inputpas.click();
         inputpas.sendKeys(pass);
-        button.click();} 
+        button.click();
+
+       }
+
+
        catch (Exception e) {
            e.printStackTrace();
        }
-    }}
+       }
+}
