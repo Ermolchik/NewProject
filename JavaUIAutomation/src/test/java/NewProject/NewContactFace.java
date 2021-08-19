@@ -1,67 +1,84 @@
-package Page;
+package NewPage;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class NewContactFace extends Main {
-      WebDriver driver;
+    WebDriver driver;
 
-      @FindBy(xpath = "//input[@name='crm_contact[lastName]']")
-      private WebElement inpitlastname;
+    @FindBy(xpath = "//*[@name='crm_contact[lastName]']")
+    private WebElement inputlastname;
 
-      @FindBy(xpath = "//input[@name='crm_contact[firstName]']")
-      private WebElement inputfirstname;
+    @FindBy(xpath = "//input[@name='crm_contact[firstName]']")
+    private WebElement inputfirstname;
 
-      @FindBy(xpath = "//span[text()='Укажите организацию']")
-      private WebElement namefirm ;
+    @FindBy(xpath = "//span[text()='Укажите организацию']")
+    private WebElement namefirm;
 
-      @FindBy(xpath = "//div[text()='1234']")
-      private WebElement namefirm2;
-      Actions usenamefirm = new Actions(driver);
+    @FindBy(xpath = "//div[text()='1234']")
+    private WebElement namefirm2;
 
-      @FindBy(xpath = "//input[@name='crm_contact[jobTitle]']")
-      private WebElement inputposition;
+    @FindBy(xpath = "//input[@name='crm_contact[jobTitle]']")
+    private WebElement inputposition;
 
-      @FindBy(xpath = "//*[@id='crm_contact-uid-611a3b08de985']//div[3]/button")
-      private WebElement saveandclose;
+    @FindBy(xpath = "//div[@class='btn-group'][2]")
+    private WebElement saveandclose;
 
-      @FindBy(xpath = "//*[text()='Иванов']")
-      private WebElement lastnametest;
+    @FindBy(xpath = "//div[@class='control-group']/div/div")
+    public WebElement lastnametest;
 
-      @FindBy(xpath = "//*[text()='Анатолий']")
-      private WebElement firstnametest;
+    @FindBy(xpath = "//div[@class='control-group'][2]/div/div")
+    public WebElement firstnametest;
 
-      @FindBy(xpath = "//*[text()='1234']")
-      private WebElement nameorgtest;
+    @FindBy(xpath = "//*[text()='1234']")
+    public WebElement nameorgtest;
 
-      @FindBy(xpath = "//*[text()='Менеджер']" )
-      private WebElement nameopositiontest;
+    @FindBy(xpath = "//div[@class='responsive-cell'][2]/div/div/div[2]/div/div")
+    public WebElement nameopositiontest;
 
-      public void NewContactFace(WebDriver driver){
-          this.driver = driver;
-          PageFactory.initElements(driver,this);
-      }
-      @Test
-      @DisplayName("Создание нового контактного лица")
-      public void CreateContactFace(String lastname, String firstname, String position){
-        inpitlastname.click();
-        inpitlastname.sendKeys(lastname);
-        inputfirstname.click();
+    public NewContactFace(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    @Step("Ввод фамилии")
+    public void sendLastName(String lastname) {
+        try {
+            Thread.sleep(3000);
+            inputlastname.sendKeys(lastname);
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }
+    }
+
+    @Step("Ввод имени")
+    public void sendFirstName(String firstname) {
         inputfirstname.sendKeys(firstname);
+    }
+
+    @Step("Выбор фирмы")
+    public void sendFirm() {
         namefirm.click();
+        Actions usenamefirm = new Actions(driver);
         usenamefirm.moveToElement(namefirm2).click().build().perform();
-        inputposition.click();
+    }
+
+    @Step("Ввод должности")
+    public void sendPosition(String position) {
         inputposition.sendKeys(position);
+    }
+
+    @Step("Нажатие кнопки сохранить")
+    public void saveClick() {
         saveandclose.click();
-        assertEquals(lastnametest,"Иванов");
-        assertEquals(firstnametest,"Анатолий");
-        assertEquals(nameorgtest,"1234");
-        assertEquals(nameopositiontest,"Менеджер");
     }
 }
+
+
+
+

@@ -1,9 +1,7 @@
-package Page;
+package NewPage;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -30,30 +28,31 @@ public class StartPage extends Main {
     @FindBy(xpath = "//*[text()='Создать проект']")
     private WebElement createproject;
 
-    public StartPage(WebDriver driver){
+    public StartPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
-    }
-    public void NewContragent(){
-       try {
-           Actions actions = new Actions(driver);
-           actions.moveToElement(ca).build().perform();
-           contactface.click();
-           createca.click();
-           Thread.sleep(5000);
-
-       }
-       catch (InterruptedException e) {
-           e.printStackTrace();
-       }
+        PageFactory.initElements(driver, this);
     }
 
-    public void NewProject(){
-        try{
+    public void NewContragent() {
+        try {
+            Actions actions = new Actions(driver);
+            actions.moveToElement(ca).build().perform();
+            contactface.click();
+            Thread.sleep(1000);
+            createca.click();
+            Thread.sleep(3000);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void NewProject() {
+        try {
             Actions actionsproj = new Actions(driver);
             actionsproj.moveToElement(myproject).build().perform();
             myprojectclick.click();
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             createproject.click();
 
         } catch (InterruptedException e) {

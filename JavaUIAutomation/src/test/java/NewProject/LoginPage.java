@@ -1,16 +1,16 @@
-package Page;
+package NewPage;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import java.util.concurrent.TimeUnit;
 
-public class LoginPage extends Main{
+public class LoginPage extends Main {
 
-     WebDriver driver;
+    WebDriver driver;
 
     @FindBy(id = "prependedInput")
     private WebElement inputlog;
@@ -21,29 +21,32 @@ public class LoginPage extends Main{
     @FindBy(xpath = "//button[@id='_submit']")
     private WebElement button;
 
-    public LoginPage (WebDriver driver){
-     this.driver = driver;
-     PageFactory.initElements(driver,this);
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
-    @Test
-    @DisplayName("Авторизация")
-    public void Login(String login, String pass){
-       try {
+    @Step("Ввод логина")
+    public void sendLogin(String login) {
+        try {
+            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+            driver.get("https://crm.geekbrains.space/user/login");
+            inputlog.sendKeys(login);
 
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.get("https://crm.geekbrains.space/user/login");
-        inputlog.click();
-        inputlog.sendKeys(login);
-        inputpas.click();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @Step("Ввод пароля")
+    public void sendPass(String pass) {
         inputpas.sendKeys(pass);
+    }
+
+    @Step("Нажатие кнопки войти")
+    public void buttonClick() {
         button.click();
+    }
 
-       }
-
-
-       catch (Exception e) {
-           e.printStackTrace();
-       }
-       }
 }
+

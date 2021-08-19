@@ -1,15 +1,13 @@
-package Page;
+package NewPage;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.PageFactory;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.openqa.selenium.support.ui.Select;
 
 public class NewProjectCreate extends Main {
     WebDriver driver;
@@ -23,68 +21,87 @@ public class NewProjectCreate extends Main {
     @FindBy(xpath = "//div[text()='1234']")
     private WebElement namefirm;
 
-    Actions project = new Actions(driver);
-    Select project2 = new Select(driver.findElement(By.xpath("//select[@name='crm_project[businessUnit]']")));
-    Select curator = new Select(driver.findElement(By.xpath("//select[@name='crm_project[curator]']")));
-    Select rp = new Select(driver.findElement(By.xpath("//select[@name='crm_project[rp]']")));
-    Select manager = new Select(driver.findElement(By.xpath("//select[@name='crm_project[manager]']")));
-
     @FindBy(xpath = "//div[@class='select2-container select2']")
     private WebElement contact;
 
     @FindBy(xpath = "//div[text()='Норина Александра']")
     private WebElement contactname;
-    Actions contactname2 = new Actions(driver);
 
-    @FindBy(xpath = "//*[@id='crm_project-uid-61193b08a7b3d']/div[1]/div/div/div[2]/div[1]/div[3]/button")
+    @FindBy(xpath = "//div[@class='btn-group'][2]")
     private WebElement saveproject;
 
-    @FindBy(xpath = "//div[text()=\"Попытка номер один\"]")
-    private WebElement nameoprojtest;
+    @FindBy(xpath = "//*[@class='controls']/div")
+    public WebElement nameprojtest;
 
-    @FindBy(xpath = "//*[text()=\"1234\"]")
-    private WebElement nameorgtest;
+    @FindBy(xpath = "//*[text()='1234']")
+    public WebElement nameorgtest;
 
     @FindBy(xpath = "//div[text()='Research & Development']")
-    private WebElement namepodrtest;
+    public WebElement namepodrtest;
 
     @FindBy(xpath = "//div[text()='Ким Юрий']")
-    private WebElement namecuratortest;
+    public WebElement namecuratortest;
 
     @FindBy(xpath = "//div[text()='Дедова Маргарита']")
-    private WebElement namerptest;
+    public WebElement namerptest;
 
     @FindBy(xpath = "//div[text()='Исаева Анастасия']")
-    private WebElement namemanagertest;
+    public WebElement namemanagertest;
 
-    @FindBy(xpath = "//div[text()='Норина Александра']")
-    private WebElement contactnametest;
+    @FindBy(xpath = "//*[@class='string-cell grid-cell grid-body-cell grid-body-cell-fio']")
+    public WebElement contactnametest;
 
-    public void NewProjectCreate(WebDriver driver){
+    public NewProjectCreate(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
-    @Test
-    @DisplayName("Создание нового проекта")
-    public void CreateProject(String namenewproject){
-        inputname.click();
+
+    @Step("Ввод имени проекта")
+    public void sendNameProject(String namenewproject) {
+
         inputname.sendKeys(namenewproject);
         newproject.click();
-        project.moveToElement(namefirm).click().build().perform();
-        project2.selectByValue("1");
-        curator.selectByValue("40");
-        rp.selectByValue("59");
-        manager.selectByValue("11");
-        contact.click();
-        contactname2.moveToElement(contactname).click().build().perform();
-        saveproject.click();
-        assertEquals(nameoprojtest,"Попытка номер один");
-        assertEquals(nameorgtest,"1234");
-        assertEquals(namepodrtest, "Research & Development");
-        assertEquals(namecuratortest,"Ким Юрий" );
-        assertEquals(namerptest,"Дедова Маргарита");
-        assertEquals(namemanagertest, "Исаева Анастасия");
-        assertEquals(contactnametest, "Норина Александра");
+    }
 
+    @Step("Выбор фирмы")
+    public void sendNameFirm() {
+
+        Actions project = new Actions(driver);
+        project.moveToElement(namefirm).click().build().perform();
+        Select project2 = new Select(driver.findElement(By.xpath("//select[@name='crm_project[businessUnit]']")));
+        project2.selectByValue("1");
+    }
+
+    @Step("Выбор куратора пректа")
+    public void sendCurator() {
+        Select curator = new Select(driver.findElement(By.xpath("//select[@name='crm_project[curator]']")));
+        curator.selectByValue("40");
+    }
+
+    @Step("Выбор руководителя проекта")
+    public void sendRP() {
+        Select rp = new Select(driver.findElement(By.xpath("//select[@name='crm_project[rp]']")));
+        rp.selectByValue("59");
+    }
+
+    @Step("Выбор  менеджера проекта")
+    public void sendManager() {
+        Select manager = new Select(driver.findElement(By.xpath("//select[@name='crm_project[manager]']")));
+        manager.selectByValue("11");
+    }
+
+    @Step("Выбор контактного лица проекта")
+    public void sendContact() {
+        contact.click();
+        Actions contactname2 = new Actions(driver);
+        contactname2.moveToElement(contactname).click().build().perform();
+    }
+
+    @Step("Нажатие кнопки сохранить")
+    public void saveProject() {
+        saveproject.click();
     }
 }
+
+
+
